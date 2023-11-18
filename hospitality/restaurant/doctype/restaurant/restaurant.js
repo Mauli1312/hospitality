@@ -3,8 +3,17 @@
 
 frappe.ui.form.on('Restaurant', {
 	refresh: function(frm) {
-		frm.add_custom_button(__('Order Entry'), () => {
-			frappe.set_route('Form', 'Restaurant Order Entry');
+		// Add a custom button to create a new Order Entry
+		frm.add_custom_button(__('Create Order'), () => {
+			createNewOrder();
 		});
-	}
+	},
 });
+
+// Function to handle the creation of a new Order Entry
+function createNewOrder() {
+	frappe.model.open_mapped_doc({
+		method: 'create_new_order_entry',
+		frm: cur_frm,
+	});
+}
